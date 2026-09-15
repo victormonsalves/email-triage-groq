@@ -1,0 +1,11 @@
+.env
+.env.*
+!*.example
+*.key
+*.pem
+*_token.json
+backups/
+logs/
+__pycache__/
+*.pyc
+.DS_Store
