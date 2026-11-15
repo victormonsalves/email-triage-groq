@@ -8,7 +8,7 @@ Resultado medible: 3/3 casos de prueba en verde — 3 correos clasificados corre
 
 Aprendizaje: los modelos se retiran (llama-3.3-70b-versatile murió esta semana) — fijar el modelo por variable de entorno y validar contra /v1/models ahorra un debug entero.
 
-¿Tu inbox también necesita un portero? Repo privado con la receta completa.
+¿Tu inbox también necesita un portero? El workflow completo está en [github.com/victormonsalves/email-triage-groq](https://github.com/victormonsalves/email-triage-groq).
 
 #n8n #automatizacion #IA #productividad
 
