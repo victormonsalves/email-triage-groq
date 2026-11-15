@@ -1,6 +1,6 @@
 # Evidencia — Email Triage con Groq (2026-09-15)
 
-Workflow: `Email Triage con Groq — auto-2026-09-15` (ID 2765ezBcfcTPYfCt, `active=false`).
+Workflow: `Email Triage con Groq` (ID 2765ezBcfcTPYfCt, `active=false`).
 Validación runtime: válida, 0 errores (15 warnings menores, sin bloqueantes).
 
 ## Criterios de aceptación (definidos antes de probar)

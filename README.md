@@ -1,4 +1,4 @@
-# Email Triage con Groq — auto-2026-09-15
+# Email Triage con Groq
 
 ## Problema
 Inbox con no leídos sin priorizar. Leer uno por uno roba horas.
