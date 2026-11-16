@@ -1,0 +1,31 @@
+flowchart LR
+  sched["TRG_Schedule<br/>cada hora"]
+  manual["TRG_ManualFixture<br/>prueba manual"]
+  fixture["FN_FixtureEmails<br/>emails de prueba"]
+  groq["HTTP_GroqClassify<br/>Groq API"]
+  parse["FN_ParseClassification<br/>categoría + fallback"]
+  router{"LOGIC_Router"}
+  draft["FN_ActionDraft<br/>borrador"]
+  sheets["LOG_SheetsPayload<br/>registro"]
+
+  sched --> fixture
+  manual --> fixture
+  fixture --> groq
+  groq --> parse
+  parse --> router
+  router -->|Action| draft
+  router -->|"Receipt / Informational / Spam"| sheets
+
+  classDef trigger fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
+  classDef code fill:#f1f5f9,stroke:#64748b,stroke-width:1.5px,color:#1e293b
+  classDef ai fill:#ede9fe,stroke:#7c3aed,stroke-width:1.5px,color:#4c1d95
+  classDef logic fill:#fef9c3,stroke:#ca8a04,stroke-width:1.5px,color:#713f12
+  classDef action fill:#ffedd5,stroke:#ea580c,stroke-width:1.5px,color:#7c2d12
+  classDef log fill:#e0f2fe,stroke:#0284c7,stroke-width:1.5px,color:#0c4a6e
+
+  class sched,manual trigger
+  class fixture,parse code
+  class groq ai
+  class router logic
+  class draft action
+  class sheets log

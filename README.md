@@ -14,35 +14,16 @@ Clasificar cada email en **Action / Receipt / Informational / Spam** con Groq, e
 
 ## Arquitectura
 
-```mermaid
-flowchart LR
-  sched["TRG_Schedule<br/>cada hora"]:::trigger
-  manual["TRG_ManualFixture<br/>prueba manual"]:::trigger
-  fixture["FN_FixtureEmails<br/>emails de prueba"]:::code
-  groq["HTTP_GroqClassify<br/>Groq API"]:::ai
-  parse["FN_ParseClassification<br/>categoría + fallback"]:::code
-  router{"LOGIC_Router"}:::logic
-  draft["FN_ActionDraft<br/>borrador"]:::action
-  sheets["LOG_SheetsPayload<br/>registro"]:::log
+<p align="center">
+  <img src="docs/diagrama-flujo.svg" alt="Flujo: disparadores → clasificación con Groq → parseo → router → borrador o registro" width="100%">
+</p>
 
-  sched --> fixture
-  manual --> fixture
-  fixture --> groq --> parse --> router
-  router -->|"Action"| draft
-  router -->|"Receipt / Informational / Spam"| sheets
-
-  classDef trigger fill:#dcfce7,stroke:#16a34a,color:#14532d
-  classDef code fill:#f1f5f9,stroke:#64748b,color:#1e293b
-  classDef ai fill:#ede9fe,stroke:#7c3aed,color:#4c1d95
-  classDef logic fill:#fef9c3,stroke:#ca8a04,color:#713f12
-  classDef action fill:#ffedd5,stroke:#ea580c,color:#7c2d12
-  classDef log fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e
-```
+*Fuente editable en [`docs/diagrama-flujo.mmd`](docs/diagrama-flujo.mmd). Se publica como imagen porque el renderizador de Mermaid de GitHub fallaba con este grafo.*
 
 ## Estado
 
 | Etapa | Estado |
-|:--|:--|
+| :-- | :-- |
 | Clasificación con Groq (`response_format: json`) | ✅ implementado |
 | Parseo con fallback a `Informational` | ✅ implementado |
 | Router de 4 categorías | ✅ implementado |
@@ -64,10 +45,12 @@ La evidencia de las pruebas está en [`docs/evidencia.md`](docs/evidencia.md).
 
 ```
 .
-├── n8n/workflow.json        workflow importable
-├── docs/evidencia.md        criterios de aceptación y resultados
-├── docs/post-linkedin.md    borrador del post que describe el proyecto
-└── .env.example             variables necesarias (sin valores)
+├── n8n/workflow.json          workflow importable
+├── docs/diagrama-flujo.svg    diagrama del flujo (imagen)
+├── docs/diagrama-flujo.mmd    fuente Mermaid del diagrama
+├── docs/evidencia.md          criterios de aceptación y resultados
+├── docs/post-linkedin.md      borrador del post que describe el proyecto
+└── .env.example               variables necesarias (sin valores)
 ```
 
 ## Puesta en marcha
@@ -75,7 +58,7 @@ La evidencia de las pruebas está en [`docs/evidencia.md`](docs/evidencia.md).
 1. Copia `.env.example` a `.env` y completa `GROQ_API_KEY`.
 2. Importa `n8n/workflow.json` en n8n (timezone `America/Santiago`, `active=false`).
 3. Ejecuta el disparador manual: clasifica los emails de ejemplo.
-4. Para el modo real, conecta Gmail OAuth, Google Sheets y Telegram.
+4. Para el modo real, conecta Gmail OAuth, Google Sheets y el canal de avisos (Telegram o Slack).
 
 ## Seguridad
 
